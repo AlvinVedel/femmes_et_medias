@@ -1,6 +1,6 @@
 # Femmes & Médias 🚀
 
-Ce dépôt GitHub est le fruit d'une collaboration intense dans le cadre du Marathon du Web, réalisé par des étudiants en M1 MIASHS en partenariat avec le M1 Communication parcours CNO. Ce projet passionnant est encadré par Paul Leclerc et bénéficie du soutien du Club de la Presse - Occitanie. 🤝
+Ce dépôt GitHub a été crée dans le cadre du Marathon du Web 2024, réalisé par des étudiants en M1 MIASHS en partenariat avec le M1 Communication parcours CNO. Ce projet  est encadré par Paul Leclerc et bénéficie du soutien du Club de la Presse - Occitanie. 🤝
 
 ## 🎯 Le projet
 
@@ -13,6 +13,7 @@ Notre approche analytique comprend plusieurs axes :
 - **Recherche et identification de mots-clés** : Avec le concours des étudiants de CNO, nous scrutons les textes à la recherche de termes clés qui peuvent révéler des biais ou des perspectives sur le genre.
 - **Analyse de sentiments** : Nous évaluons la tonalité des reportages pour distinguer les nuances positives, neutres, ou négatives.
 - **Analyse de la haine** : Une attention particulière est portée sur les discours haineux ou discriminatoires pour mieux comprendre comment ils se manifestent dans les médias.
+- etc.
 
 ## 📢 La communication résultante
 
@@ -25,5 +26,5 @@ Les fruits de notre travail seront partagés à travers divers formats, visant �
 
 ---
 
-Notre projet "Femmes & Médias" vise à illuminer et à questionner la représentation des femmes dans le paysage médiatique actuel. En utilisant des méthodologies de pointe et une approche collaborative, nous espérons contribuer à un débat plus éclairé et nuancé sur les questions de genre dans les médias. Rejoignez-nous dans cette aventure analytique et découvrez ce que les médias disent réellement sur les femmes. 🌟
+Notre projet "Femmes & Médias" vise à questionner la représentation des femmes dans le paysage médiatique actuel. En utilisant des méthodologies de pointe et une approche collaborative, nous espérons contribuer à un débat plus éclairé et nuancé sur les questions de genre dans les médias. Rejoignez-nous dans cette aventure analytique et découvrez ce que les médias disent réellement sur les femmes. 🌟
 
