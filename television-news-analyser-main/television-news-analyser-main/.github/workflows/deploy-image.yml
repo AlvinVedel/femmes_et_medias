@@ -1,0 +1,44 @@
+name: Build & Deploy to Scaleway
+
+on:
+  workflow_run:
+    workflows: [Get news from websites]
+    types:
+      - completed
+  push:
+    # ci is skipped on save data workflow
+    branches:
+      - main 
+
+
+  # to be able to force deploy
+  workflow_dispatch:
+
+
+env:
+  PYTHON_VERSION: '3.11'
+  POETRY_VERSION: '1.6.1'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/checkout@v4
+      - name: Login to Scaleway Container Registry
+        uses: docker/login-action@v3
+        with:
+          username: nologin
+          password: ${{ secrets.SCALEWAY_API_KEY }}
+          registry: ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}
+      - name: Set yesterday date as env variable for partitioning
+        run: echo "PATH_YEAR_PARTITION=$(date -d "yesterday" +'year=%Y')" >> $GITHUB_ENV
+      - name: debug
+        run: ls -R data-news-json/media=France\ 2/${{ env.PATH_YEAR_PARTITION }}
+      - name: Build scala image
+        run: docker build --no-cache -f Dockerfile . -t ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/spark_tv_news
+      - name: Push scala Image
+        run: docker push ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/spark_tv_news

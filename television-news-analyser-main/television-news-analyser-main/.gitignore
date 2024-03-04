@@ -1,0 +1,17 @@
+.idea
+*.parquet
+*.zip
+target/
+project/target/
+.bsp
+spark-warehouse/
+archived-json/
+src/test/docker/pgdata/
+.ipynb_checkpoints/
+test-test-json/
+output-*
+**.crc
+**._SUCCESS
+**_SUCCESS
+notebooks/.ipynb_checkpoints/
+notebooks/data/

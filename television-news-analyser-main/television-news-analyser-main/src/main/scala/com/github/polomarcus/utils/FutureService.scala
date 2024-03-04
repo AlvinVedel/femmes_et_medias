@@ -1,0 +1,28 @@
+package com.github.polomarcus.utils
+
+import java.util.concurrent.Executors
+
+import com.typesafe.scalalogging.Logger
+
+import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.util.{Failure, Success}
+
+object FutureService {
+  val logger = Logger(this.getClass)
+  implicit val ec = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(8)) //http://stackoverflow.com/questions/15285284/how-to-configure-a-fine-tuned-thread-pool-for-futures
+
+  def waitFuture[T](listFuture: Seq[Future[List[T]]]) = {
+    val allFutures = Future.sequence(listFuture).map(_.flatten.toList)
+
+    allFutures.onComplete {
+      case Success(r) => logger.debug("SUCCESS: AllFutures complete")
+      case Failure(e) => logger.info("FAILURE: AllFutures complete")
+    }
+
+    logger.debug("waitFuture")
+    val result = Await.result(allFutures, Duration(20, "minutes"))
+    logger.debug("waitFuture: done")
+    result
+  }
+}
