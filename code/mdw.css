@@ -1,0 +1,77 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+#navbar {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+#navbar a {
+  text-decoration: none;
+  color: black;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+footer {
+  background-color: #f5f5f5;
+  color: black;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px; /* Espacement entre les liens et le texte des droits */
+  font-size: 0.8em;
+}
+
+.footer-link,
+.footer-social {
+  color: black;
+  text-decoration: none;
+  margin: 0 10px; /* Espacement entre les icônes/liens */
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-link i,
+.footer-social i {
+  margin-right: 5px;
+}
+
+.footer-bottom {
+  font-size: 0.8em; /* Ajustez la taille de la police pour les droits d'auteur si nécessaire */
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-link,
+  .footer-social {
+    margin: 5px 0; /* Ajustement pour les écrans plus petits */
+  }
+
+  .footer-bottom {
+    margin-top: 10px; /* Espacement entre les liens et le texte des droits pour les petits écrans */
+  }
+}
