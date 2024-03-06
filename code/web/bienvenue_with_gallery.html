@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenue - Marathon du Web 2024</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./mdw.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">Accueil</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="bienvenue.html">Bienvenue</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="equipe.html">Notre équipe</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="recherche.html">Recherche par mots-clefs</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div style="text-align: center; margin: 0 auto; max-width: 1050px; padding: 0 20px;">
+  <h1 style="font-family: Arial, sans-serif; font-size: 36px; color: #333333;">MARATHON DU WEB 2024</h1>
+  <p style="font-family: Arial, sans-serif; font-size: 19px; color: #666666; line-height: 1.6;">
+    Le projet "Echo Fem", développé dans le cadre du Marathon du Web Edition 2024, se positionne à l'intersection de la technologie, des études de genre et des médias.
+    
+    Ce projet vise à décortiquer et analyser la représentation des femmes dans les médias traditionnels, en s'appuyant sur une décennie de données issues des journaux télévisés de TF1, FR2 et FR3. 
+    
+    Le choix de ces chaînes est stratégique, visant à embrasser un spectre large de la population et des perspectives médiatiques.
+  </p>
+</div>
+  <div class="slideshow-container">
+    <div class="mySlides fade">
+      <img id="img-1" src="img-1.png" alt="Image 1" style="width:50%">
+    </div>
+
+    <div class="mySlides fade">
+      <img id="img-2" src="img-2.jpeg" alt="Image 2" style="width:50%">
+    </div>
+
+  </div>
+
+<script>
+var slideIndex = 0;
+showSlides(slideIndex);
+
+// Ajoute ou soustrait le nombre de slides
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Affiche le slide actuel
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}
+    slides[slideIndex-1].style.display = "block";
+    setTimeout(showSlides, 1800); // Change image every 4 seconds
+}
+autoSlide(); // Commence le défilement automatique au chargement de la page
+</script>
+</body>
+</html>

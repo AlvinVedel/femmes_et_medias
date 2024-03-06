@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accueil - EchoFem</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./mdw.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FEMMES & MEDIAS</h1>
+      <div id="navbar">
+        <a href="acceuil.html">Accueil</a>
+        <a href="results.html">Analyse</a>
+        <a href="biblio.html">Bibliographie</a>
+        <a href="propos.html">À Propos</a>
+      </div>
+    </header>
+    <!-- Bande de couleurs sous la navbar -->
+    <div class="color-band">
+      <div class="color-block" style="background-color: #d5d5d5"></div>
+      <div class="color-block" style="background-color: #ffff01"></div>
+      <div class="color-block" style="background-color: #01ffff"></div>
+      <div class="color-block" style="background-color: #01ff02"></div>
+      <div class="color-block" style="background-color: #ff00ff"></div>
+      <div class="color-block" style="background-color: #eb1c22"></div>
+      <div class="color-block" style="background-color: #0000fe"></div>
+    </div>
+
+    <div class="content-flex-container">
+      <div id="main-content">
+        <!-- Le contenu spécifique à chaque page ici -->
+        <h2>MARATHON DU WEB 2024</h2>
+        <p>
+          Dans le cadre de
+          <a href="https://marathonduweb.odoo.com"
+            >l’édition 2024 du Marathon du web</a
+          >, deux promotions ont été amenées à travailler en équipe : 4
+          étudiant.e.s en master 1 MIASHS (Mathématiques et Informatiques
+          Appliquées aux Sciences Humaines et Sociales) ainsi que 3 étudiantes
+          en master 1 CNO (Communications Numériques et Organisations). Cette
+          année, la thématique abordée touche au traitement médiatique des
+          femmes et plus précisément, à la compréhension des mécaniques sexistes
+          en œuvre et à la répartition des pouvoirs et des rôles dans les
+          médias.
+        </p>
+        <p>
+          Ce sujet est mené par la commission
+          <a href="https://www.clubpresse.org/pages/femmesMedias"
+            >“Femmes & Médias”</a
+          >
+          du Club de la Presse Occitanie en se basant sur un travail de recueil
+          de données de Paul Leclercq. Spécialistes du traitement des données,
+          les étudiants en MIASHS (Alvin VEDEL, Jamila CHERKAOUI, Dina EL
+          HIJJAWI et Alya ZOUZOU) développent des algorithmes, des visuels et
+          font des statistiques dont ils rendent compte sous la forme d'une
+          application web. Spécialistes en communication, les étudiants en CNO
+          (AMARA Kenza, JUGE Emmy et MEUNIER Jade) proposent une stratégie de
+          communication en lien avec les données en produisant flyer, vidéo
+          promotionnel, site web, logo, etc.
+        </p>
+      </div>
+
+      <div class="slideshow-container">
+        <!-- Slides -->
+        <div class="mySlides fade">
+          <img
+            src="img/Echofem_Affiche_Web.png"
+            alt="Image 1"
+            style="width: 100%"
+          />
+        </div>
+        <div class="mySlides fade">
+          <img
+            src="img/Echofem_Flyer_Web.png"
+            alt="Image 2"
+            style="width: 100%"
+          />
+        </div>
+        <div class="mySlides fade">
+          <img src="img/moc.png" alt="Image 2" style="width: 100%" />
+        </div>
+        <div class="mySlides fade">
+          <img
+            src="img/Mockup_Affiche_EchoFem_03.png"
+            alt="Image 2"
+            style="width: 100%"
+          />
+        </div>
+
+        <!-- Plus de slides au besoin -->
+      </div>
+    </div>
+
+    <div id="link_analyse">
+      <i class="fas fa-chart-line" style="color: #322c2d"> </i>
+      <a href="results.html" style="font-size: 1.5em">Voir l'analyse !</a>
+    </div>
+
+    <script>
+      var slideIndex = 0;
+
+      function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        // Retire la classe 'showSlide' de tous les slides
+        for (i = 0; i < slides.length; i++) {
+          slides[i].className = slides[i].className.replace(" showSlide", "");
+          slides[i].style.display = "none"; // S'assure que le slide est caché
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block"; // Prépare le slide pour être montré
+        slides[slideIndex - 1].className += " showSlide"; // Ajoute la classe pour déclencher l'effet de fondu
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
+      }
+
+      showSlides(); // Commence le défilement automatique au chargement de la page
+    </script>
+
+    <footer>
+      <div class="footer-top">
+        <a
+          href="https://www.univ-montp3.fr/fr/formations/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-1-mathematiques-et-informatique-appliquees-aux-sciences-humaines-et-sociales-miashs-IGVZNX0O.html"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          MIASHS</a
+        >
+        <a
+          href="https://itic.www.univ-montp3.fr/fr/formation/masters/masters-info-com-cno-compaq-cpo/parcours-cno"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          CNO</a
+        >
+        <a
+          href="https://github.com/AlvinVedel/femmes_et_medias.git"
+          class="footer-link"
+          ><i class="fas fa-code-branch" style="color: #322c2d"></i> GIT</a
+        >
+        <a href="https://twitter.com/clubdelapresse" class="footer-social"
+          ><i class="fab fa-twitter" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/clubdelapresse/"
+          class="footer-social"
+          ><i class="fab fa-instagram" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/ClubdelapresseOccitanie"
+          class="footer-social"
+          ><i class="fab fa-facebook-f" style="color: #322c2d"></i
+        ></a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EchoFem. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </body>
+</html>
