@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEMMES & MEDIAS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../mdw.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.js"
+      integrity="sha512-NmSTfudjn1FCaFMQ+f4xveBmwRJn5ep8Wu+YOeq+CeExhFtKvwhfKVXFX3tGxoGWxu8Fl83qm9nE8/Hkc1dWZg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.rawgit.com/jasondavies/d3-cloud/v1.2.0/build/d3.layout.cloud.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>FEMMES & MEDIAS</h1>
+      <div id="navbar">
+        <a href="../acceuil.html">Accueil</a>
+        <a href="../results.html">Analyses</a>
+        <a href="../biblio.html">Bibliographie</a>
+        <a href="../propos.html">À Propos</a>
+      </div>
+    </header>
+    <div class="color-band">
+      <!-- Color bands simplified for clarity -->
+      <div class="color-block" style="background-color: #d5d5d5"></div>
+      <div class="color-block" style="background-color: #ffff01"></div>
+      <div class="color-block" style="background-color: #01ffff"></div>
+      <div class="color-block" style="background-color: #01ff02"></div>
+      <div class="color-block" style="background-color: #ff00ff"></div>
+      <div class="color-block" style="background-color: #eb1c22"></div>
+      <div class="color-block" style="background-color: #0000fe"></div>
+    </div>
+
+    <div id="main-content">
+      <h3>Relation graphique des clusters issus du LDA.</h3>
+      <p>
+        Le LDA permet de regrouper les textes de notre corpus à l'aide de
+        « topics ». Ce clustering utilise la co-occurence des mots entre les
+        textes et nous permet d'établir des sous-corpus qui sont représentés
+        ci-dessous. La taille des clusters est variable comme l'indique la
+        surface des bulles du graphe, l'épaisseur des liens entre les bulles
+        représente le nombre de « topics » en communs dans les clusters. Les
+        bulles ont été colorés par une palette du bleu au rose selon le GPI
+        (Gender parity index) moyen du cluster, un cluster rose possédera des
+        thématiques davantage considérées comme féminine, un bleu des
+        thématiques masculines. Un nuage de mots correspondant aux « topics »
+        les plus présents est également affiché sur la bulle. Les résultats du
+        cluster sont interprétables dans la mesure où les bulles les plus roses
+        possèdent des mots-clés très précis appartenant au registre de la
+        famille, l'école, de la santé et de la culture. A l'inverse les clusters
+        les plus « masculins » ressortent des mots-clés comme la guerre,
+        l'économie, la politique et l'industrie. On peut également remarquer
+        l'épaisseur des liens, des clusters de couleurs opposées ne partagent
+        pas beaucoup de mots en commun.
+      </p>
+    </div>
+
+    <div id="cluster-container" style="width: 100%">
+      <script>
+        var container = d3.select("#cluster-container");
+        var boundingRect = container.node().getBoundingClientRect();
+        var w = boundingRect.width;
+        var h = Math.max(500, window.innerHeight * 0.8); // Adjust height as needed
+
+        var svg = container
+          .append("svg")
+          .attr("viewBox", `0 0 ${w} ${h}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", "100%")
+          .style("height", "auto");
+
+        var g = svg.append("g");
+        var wordClouds = svg.append("g").attr("class", "word-clouds");
+
+        function calculerSomme(objet) {
+          let somme = 0;
+
+          if (Array.isArray(objet)) {
+            for (let i = 0; i < objet.length; i++) {
+              somme += calculerSomme(objet[i]);
+            }
+          } else if (typeof objet === "object") {
+            for (let propriete in objet) {
+              if (propriete === "nb") {
+                somme += objet[propriete];
+              } else {
+                somme += calculerSomme(objet[propriete]);
+              }
+            }
+          } else if (typeof objet === "number" && objet === "nb") {
+            somme += objet;
+          }
+          return somme;
+        }
+
+        function calculerSommeGPI(objet) {
+          let somme = 0;
+
+          if (Array.isArray(objet)) {
+            for (let i = 0; i < objet.length; i++) {
+              somme += calculerSommeGPI(objet[i]);
+            }
+          } else if (typeof objet === "object") {
+            for (let propriete in objet) {
+              if (propriete === "nb") {
+                // Vérifier si 'gpi' est présent dans les propriétés de l'objet
+                if (objet["gpi"]) {
+                  somme += objet["gpi"] * objet[propriete];
+                }
+              } else {
+                somme += calculerSommeGPI(objet[propriete]);
+              }
+            }
+          } else if (typeof objet === "number" && objet === "nb") {
+            somme += objet;
+          }
+
+          return somme;
+        }
+
+        function rand(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        d3.json("./fichier_graph.json").then(function (data) {
+          var colorScale = d3
+            .scaleSequential(d3.interpolateViridis)
+            .domain([-0.9, -0.3])
+            .range(["blue", "pink"]);
+
+          var links = g
+            .selectAll(".link")
+            .data(data.links)
+            .enter()
+            .append("line");
+          links
+            .attr("stroke", "#aaaaaa")
+            .attr("stroke-width", function (d) {
+              return d.value;
+            })
+            /*     .attr("x1",  function(d){  return d3.select("#node"+d.source).attr("cx"); } )
+              .attr("y1",  function(d){  return d3.select("#node"+d.source).attr("cy"); } )
+              .attr("x2",  function(d){  return d3.select("#node"+d.target).attr("cx"); } )
+              .attr("y2",  function(d){  return d3.select("#node"+d.target).attr("cy"); } )   */
+            .attr("stroke-opacity", 0.6);
+          var nodes = g
+            .selectAll(".node")
+            .data(data.nodes)
+            .enter()
+            .append("circle");
+          nodes
+            .attr("stroke", "#aaaaaa")
+            .attr("r", function (d) {
+              return calculerSomme(d) / 350;
+            })
+            .attr("id", function (d) {
+              return "node" + d.id;
+            })
+            .call(
+              d3
+                .drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended)
+            )
+            .attr("fill", function (d) {
+              return colorScale(calculerSommeGPI(d) / calculerSomme(d));
+            })
+            .append("title")
+            .text(function (d) {
+              var txt = "Nombre de textes : ";
+              txt =
+                txt +
+                calculerSomme(d) +
+                "\n GPI moyen : " +
+                calculerSommeGPI(d) / calculerSomme(d);
+              return txt;
+            });
+
+          var forceDirectedLayout = d3
+            .forceSimulation()
+            .nodes(data.nodes)
+            .force("repulsion", d3.forceManyBody())
+            .force(
+              "attraction",
+              d3.forceLink(data.links).distance(function (d) {
+                return 300 * d.value;
+              })
+            )
+            .force("center", d3.forceCenter(w / 2, h / 2));
+
+          forceDirectedLayout.nodes().forEach(function (d) {
+            d.x = rand(1, w);
+            d.y = rand(1, h);
+          });
+          forceDirectedLayout.on("tick", function () {
+            // Mettez à jour les liens et les nodes comme vous le faites actuellement
+            links
+              .attr("x1", function (d) {
+                return d.source.x;
+              })
+              .attr("y1", function (d) {
+                return d.source.y;
+              })
+              .attr("x2", function (d) {
+                return d.target.x;
+              })
+              .attr("y2", function (d) {
+                return d.target.y;
+              });
+
+            nodes
+              .attr("cx", function (d) {
+                return d.x;
+              })
+              .attr("cy", function (d) {
+                return d.y;
+              });
+
+            // Supprimez tous les groupes de nuage de mots existants
+            wordClouds.selectAll(".word-cloud").remove();
+
+            // Créez de nouveaux groupes de nuage de mots
+          });
+
+          forceDirectedLayout.on("end", function () {
+            nodes.each(function (d) {
+              var x = d.x;
+              var y = d.y;
+
+              // Adapter cette fonction selon la structure de vos données
+              var wordData = getWordCloudData(d);
+
+              // Créer un groupe pour chaque word cloud
+              var wordCloudGroup = wordClouds
+                .append("g")
+                .attr("class", "word-cloud")
+                .attr("transform", "translate(" + x + "," + y + ")");
+
+              // Appeler la fonction pour générer le word cloud
+              generateWordCloud(wordCloudGroup, wordData);
+            });
+          });
+
+          // ...
+
+          // Fonction pour générer le layout du word cloud
+          function generateWordCloud(container, words) {
+            var layout = d3.layout
+              .cloud()
+              .size([150, 150]) // Ajustez la taille du word cloud selon vos besoins
+              .words(words)
+              .padding(0)
+              .rotate(function () {
+                return 0;
+              })
+              .fontSize(function (d) {
+                return d.size / 2;
+              })
+              .on("end", drawWordCloud);
+            layout.start();
+
+            // Fonction pour dessiner le word cloud dans son conteneur spécifique
+            function drawWordCloud(words) {
+              container
+                .selectAll("text")
+                .data(words)
+                .enter()
+                .append("text")
+                .style("font-size", function (d) {
+                  return d.size + "px";
+                })
+                .style("fill", "black")
+                .style("font-family", "century gothic, sans-serif")
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                  return (
+                    "translate(" +
+                    [transform.applyX(d.x), transform.applyY(d.y)] +
+                    ")rotate(" +
+                    d.rotate +
+                    ")"
+                  );
+                })
+                /*          .attr("transform", function (d) {
+                              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                          })  */
+                .text(function (d) {
+                  return d.text;
+                });
+            }
+          }
+
+          // Fonction pour obtenir les données du word cloud à partir du node
+          function getWordCloudData(node) {
+            var keywords = node.infos.keywords;
+            var sortedKeywords = Object.entries(keywords)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 8);
+
+            // Convertissez le tableau trié en un tableau d'objets avec des propriétés 'text' et 'size'
+            var wordCloudData = sortedKeywords.map(([text, size]) => ({
+              text: text,
+              size: Math.sqrt(size * 10) + 10, // Vous pouvez ajuster la taille selon vos besoins
+            }));
+
+            return wordCloudData;
+          }
+
+          function dragstarted(e, d) {
+            if (!e.active) forceDirectedLayout.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+          }
+          function dragged(e, d) {
+            d.fx = e.x;
+            d.fy = e.y;
+          }
+          function dragended(e, d) {
+            if (!e.active) forceDirectedLayout.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+          }
+        });
+
+        var z = d3
+          .zoom()
+          .scaleExtent([0.1, 5])
+          .on("zoom", function ({ transform }) {
+            g.attr("transform", transform);
+            wordClouds.attr("transform", transform); // Ajouter ceci pour le groupe de nuage de mots
+          });
+        svg.call(z);
+        var transform = d3.zoomIdentity;
+
+        svg.call(zoom.transform, d3.zoomIdentity.scale(0.1));
+      </script>
+    </div>
+    <footer>
+      <div class="footer-top">
+        <a
+          href="https://www.univ-montp3.fr/fr/formations/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-1-mathematiques-et-informatique-appliquees-aux-sciences-humaines-et-sociales-miashs-IGVZNX0O.html"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          MIASHS</a
+        >
+        <a
+          href="https://itic.www.univ-montp3.fr/fr/formation/masters/masters-info-com-cno-compaq-cpo/parcours-cno"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          CNO</a
+        >
+        <a
+          href="https://github.com/AlvinVedel/femmes_et_medias.git"
+          class="footer-link"
+          ><i class="fas fa-code-branch" style="color: #322c2d"></i> GIT</a
+        >
+        <a href="https://twitter.com/clubdelapresse" class="footer-social"
+          ><i class="fab fa-twitter" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/clubdelapresse/"
+          class="footer-social"
+          ><i class="fab fa-instagram" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/ClubdelapresseOccitanie"
+          class="footer-social"
+          ><i class="fab fa-facebook-f" style="color: #322c2d"></i
+        ></a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EchoFem. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </body>
+</html>

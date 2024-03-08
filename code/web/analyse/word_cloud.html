@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEMMES & MEDIAS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../mdw.css" />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.js"
+      integrity="sha512-NmSTfudjn1FCaFMQ+f4xveBmwRJn5ep8Wu+YOeq+CeExhFtKvwhfKVXFX3tGxoGWxu8Fl83qm9nE8/Hkc1dWZg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.rawgit.com/jasondavies/d3-cloud/v1.2.0/build/d3.layout.cloud.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>FEMMES & MEDIAS</h1>
+      <div id="navbar">
+        <a href="../acceuil.html">Accueil</a>
+        <a href="../results.html">Analyses</a>
+        <a href="../biblio.html">Bibliographie</a>
+        <a href="../propos.html">À Propos</a>
+      </div>
+    </header>
+    <div class="color-band">
+      <!-- Color bands simplified for clarity -->
+      <div class="color-block" style="background-color: #d5d5d5"></div>
+      <div class="color-block" style="background-color: #ffff01"></div>
+      <div class="color-block" style="background-color: #01ffff"></div>
+      <div class="color-block" style="background-color: #01ff02"></div>
+      <div class="color-block" style="background-color: #ff00ff"></div>
+      <div class="color-block" style="background-color: #eb1c22"></div>
+      <div class="color-block" style="background-color: #0000fe"></div>
+    </div>
+
+    <div id="main-content">
+      <h3>Nuage des mots les plus présents Par Clusters</h3>
+      <p>
+        Cette visualisation permet d'afficher parmi les 15 clusters obtenus par
+        le LDA ainsi que les mots qui ressortent le plus. C'est une
+        visualisation assez simple dans laquelle la taille des mots est une
+        variable visuelle allouées à la représentation de chaque mot au sein du
+        cluster. Elle permet de comparer les mots ainsi obtenus et on peut les
+        regrouper en thématiques.
+      </p>
+    </div>
+
+    <div id="main-container">
+      <div id="button-container">
+        <!-- Remplacez les input/label par des boutons -->
+        <button id="node0" class="node-button" value="0">Cluster 0</button>
+        <button id="node1" class="node-button" value="1">Cluster 1</button>
+        <button id="node2" class="node-button" value="2">Cluster 2</button>
+        <button id="node3" class="node-button" value="3">Cluster 3</button>
+        <button id="node4" class="node-button" value="4">Cluster 4</button>
+        <button id="node5" class="node-button" value="5">Cluster 5</button>
+        <button id="node6" class="node-button" value="6">Cluster 6</button>
+        <button id="node7" class="node-button" value="7">Cluster 7</button>
+        <button id="node8" class="node-button" value="8">Cluster 8</button>
+        <button id="node9" class="node-button" value="9">Cluster 9</button>
+        <button id="node10" class="node-button" value="10">Cluster 10</button>
+        <button id="node11" class="node-button" value="11">Cluster 11</button>
+        <button id="node12" class="node-button" value="12">Cluster 12</button>
+        <button id="node13" class="node-button" value="13">Cluster 13</button>
+        <button id="node14" class="node-button" value="14">Cluster 14</button>
+      </div>
+
+      <div id="words-container">
+        <script>
+          // Define the dimensions based on the container's width to make it responsive
+          var container = document.getElementById("words-container");
+          var w = container.offsetWidth;
+          var h = Math.min(700, window.innerHeight * 0.9); // Adjust height dynamically
+
+          // Append the SVG to #words-container instead of 'body'
+          var b = d3.select("#words-container");
+          var svg = b
+            .append("svg")
+            .attr("viewBox", `0 0 ${w} ${h}`) // Use viewBox for responsiveness
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .style("width", "100%")
+            .style("height", "auto");
+
+          var wordClouds = svg.append("g").attr("class", "word-clouds");
+
+          var buttonsContainer = d3.select("#button-container");
+          var buttons = buttonsContainer.selectAll(".node-button");
+
+          var selectedNodeId;
+
+          buttons.on("click", function () {
+            selectedNodeId = +this.value; // Convert to number
+            updateWordCloud();
+          });
+
+          function updateWordCloud() {
+            d3.json("fichier_graph.json").then(function (data) {
+              var selectedNode = data.nodes.find(
+                (node) => node.id === selectedNodeId
+              );
+
+              if (selectedNode) {
+                wordClouds.selectAll(".word-cloud").remove();
+
+                var x = w / 2;
+                var y = h / 2;
+
+                var wordData = getWordCloudData(selectedNode);
+                var wordCloudGroup = wordClouds
+                  .append("g")
+                  .attr("class", "word-cloud")
+                  .attr("transform", `translate(${x}, ${y})`);
+
+                generateWordCloud(wordCloudGroup, wordData);
+              }
+            });
+          }
+
+          // Initialisation avec le premier bouton sélectionné
+          buttons.nodes()[0].click();
+
+          // Fonction pour générer le layout du word cloud
+          function generateWordCloud(container, words) {
+            var layout = d3.layout
+              .cloud()
+              .size([600, 600]) // Ajustez la taille du word cloud selon vos besoins
+              .words(words)
+              .padding(15)
+              .rotate(function () {
+                return 0;
+              }) // Désactivez la rotation pour un nuage de mots simple
+              .fontSize(function (d) {
+                return Math.sqrt(d.size * 100) / 3;
+              })
+              .on("end", drawWordCloud);
+            layout.start();
+
+            // Fonction pour dessiner le word cloud dans son conteneur spécifique
+            function drawWordCloud(words) {
+              container
+                .selectAll("text")
+                .data(words)
+                .enter()
+                .append("text")
+                .style("font-size", function (d) {
+                  return d.size + "px";
+                })
+                .style("font-family", "century gothic, sans-serif")
+                .style("fill", "black")
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                  return (
+                    "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"
+                  );
+                })
+                .text(function (d) {
+                  return d.text;
+                });
+            }
+          }
+
+          // Fonction pour obtenir les données du word cloud à partir du node
+          function getWordCloudData(node) {
+            var keywords = node.infos.keywords;
+
+            var sortedKeywords = Object.entries(keywords)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 20);
+
+            // Convertissez le tableau trié en un tableau d'objets avec des propriétés 'text' et 'size'
+            var wordCloudData = sortedKeywords.map(([text, size]) => ({
+              text: text,
+              size: size * 10000, // Vous pouvez ajuster la taille selon vos besoins
+            }));
+
+            return wordCloudData;
+          }
+        </script>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-top">
+        <a
+          href="https://www.univ-montp3.fr/fr/formations/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-1-mathematiques-et-informatique-appliquees-aux-sciences-humaines-et-sociales-miashs-IGVZNX0O.html"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          MIASHS</a
+        >
+        <a
+          href="https://itic.www.univ-montp3.fr/fr/formation/masters/masters-info-com-cno-compaq-cpo/parcours-cno"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          CNO</a
+        >
+        <a
+          href="https://github.com/AlvinVedel/femmes_et_medias.git"
+          class="footer-link"
+          ><i class="fas fa-code-branch" style="color: #322c2d"></i> GIT</a
+        >
+        <a href="https://twitter.com/clubdelapresse" class="footer-social"
+          ><i class="fab fa-twitter" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/clubdelapresse/"
+          class="footer-social"
+          ><i class="fab fa-instagram" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/ClubdelapresseOccitanie"
+          class="footer-social"
+          ><i class="fab fa-facebook-f" style="color: #322c2d"></i
+        ></a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EchoFem. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </body>
+</html>

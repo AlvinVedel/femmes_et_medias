@@ -372,3 +372,73 @@ footer {
   padding: 15px; /* Espacement autour du texte */
   font-size: 1em; /* Taille du texte */
 }
+
+#plotly-graph-container {
+  background: #ffffff; /* White background */
+  border: 2px solid #dee2e6; /* Light grey border for subtle definition */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border-radius: 8px; /* Rounded corners for a smoother look */
+  overflow: hidden; /* Ensures no overflow from the iframe */
+  margin: 20px auto; /* Centers the container and adds vertical spacing */
+  padding: 20px; /* Padding around the iframe for white space */
+}
+
+iframe {
+  width: 100%; /* Full width to stretch within the container */
+  height: 500px; /* Fixed height, but you can adjust as necessary */
+  border: none; /* Removes the default iframe border */
+}
+
+#calendar-iframe {
+  width: 100%; /* Full width to stretch within the container */
+  height: 1500px; /* Fixed height, but you can adjust as necessary */
+  border: none; /* Removes the default iframe border */
+}
+
+svg {
+  display: block; /* Changes the SVG's display from inline to block */
+  margin: auto; /* Automatically calculates equal left and right margins to center the SVG */
+}
+#main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px; /* Reduced space between children */
+}
+
+#words-container {
+  display: block; /* Ensure it's a block container to properly contain the SVG */
+  width: 100%; /* Full width */
+  height: 100%; /* Full width */
+  max-width: 900px; /* Maximum width of the container; adjust as needed */
+  margin: 0 auto; /* Centering the container */
+}
+
+.svg-content-responsive {
+  display: block; /* SVG block display */
+  width: 100% !important; /* Full width */
+  height: auto !important; /* Height auto for aspect ratio */
+  /* Adjust viewBox settings in JS to control aspect ratio */
+}
+
+#button-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows buttons to wrap onto the next line */
+  gap: 10px; /* Space between each button */
+  justify-content: center; /* Center the buttons container horizontally */
+}
+
+.node-button {
+  background-color: #322c2d; /* Button background color */
+  color: white; /* Button text color */
+  font-family: "Century Gothic", sans-serif; /* Gothic style font */
+  border-radius: 5px; /* Arrondit les angles */
+  padding: 10px;
+  box-sizing: border-box;
+  border: none; /* Remove border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.node-button:hover {
+  background-color: #f26522; /* Button background color on hover */
+}

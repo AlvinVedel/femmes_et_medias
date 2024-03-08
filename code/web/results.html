@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Analyse - FEMMES & MEDIAS</title>
+    <title>Analyses - FEMMES & MEDIAS</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -15,7 +15,7 @@
       <h1>FEMMES & MEDIAS</h1>
       <div id="navbar">
         <a href="acceuil.html">Accueil</a>
-        <a href="results.html">Analyse</a>
+        <a href="results.html">Analyses</a>
         <a href="biblio.html">Bibliographie</a>
         <a href="propos.html">À Propos</a>
       </div>
@@ -32,75 +32,75 @@
     </div>
 
     <div id="visualization-mosaic">
-      <div class="mosaic-tile">
-        <img src="img/plots/heat.png" alt="Heat Map" />
-        <div class="tile-overlay">
-          <div class="tile-description">Description de la Heat Map</div>
-        </div>
-      </div>
-
-      <!-- Répétez pour chaque visualisation -->
-      <div class="mosaic-tile">
-        <img
-          src="img/plots/bar_fem.png"
-          alt="Line Plot Évolutif des Présentateurs"
-        />
-        <div class="tile-overlay">
-          <div class="tile-description">
-            Description du Line Plot des Présentateurs
+      <a href="analyse/heat.html" class="mosaic-tile-link">
+        <div class="mosaic-tile">
+          <img src="img/plots/heat.png" alt="Heat Map" />
+          <div class="tile-overlay">
+            <div class="tile-description">
+              Carte de Chaleur des Indices de Parité des Genres par clusters et
+              médias
+            </div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mosaic-tile">
-        <img
-          src="img/plots/bar_fem.png"
-          alt="Line Plot Évolutif des Présentateurs"
-        />
-        <div class="tile-overlay">
-          <div class="tile-description">
-            Description du Line Plot des Présentateurs
+      <a href="analyse/distrib.html" class="mosaic-tile-link">
+        <div class="mosaic-tile">
+          <img src="img/plots/distrib.png" alt="Heat Map" />
+          <div class="tile-overlay">
+            <div class="tile-description">
+              Distribution de l'indice de Parité des Genres
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="mosaic-tile">
-        <img
-          src="img/plots/bar_fem.png"
-          alt="Line Plot Évolutif des Présentateurs"
-        />
-        <div class="tile-overlay">
-          <div class="tile-description">
-            Description du Line Plot des Présentateurs
+      </a>
+      <a href="analyse/sauvegarde_cluster.html" class="mosaic-tile-link">
+        <div class="mosaic-tile">
+          <img src="img/plots/clust.png" alt="Heat Map" />
+          <div class="tile-overlay">
+            <div class="tile-description">
+              Relation graphique des clusters issus du LDA
+            </div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mosaic-tile">
-        <img
-          src="img/plots/bar_fem.png"
-          alt="Line Plot Évolutif des Présentateurs"
-        />
-        <div class="tile-overlay">
-          <div class="tile-description">
-            Description du Line Plot des Présentateurs
+      <a href="analyse/word_cloud.html" class="mosaic-tile-link">
+        <div class="mosaic-tile">
+          <img src="img/plots/words.png" alt="Heat Map" />
+          <div class="tile-overlay">
+            <div class="tile-description">
+              Nuage des mots les plus présents Par Clusters
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="mosaic-tile">
-        <img
-          src="img/plots/bar_fem.png"
-          alt="Line Plot Évolutif des Présentateurs"
-        />
-        <div class="tile-overlay">
-          <div class="tile-description">
-            Description du Line Plot des Présentateurs
+      </a>
+      <a href="analyse/line_plot.html" class="mosaic-tile-link">
+        <div class="mosaic-tile">
+          <img src="img/plots/line_plot_prest.png" alt="Heat Map" />
+          <div class="tile-overlay">
+            <div class="tile-description">
+              Graphique en Courbe représentant l'évolution du pourventage de
+              femme présentatrices et éditrices de 2013 à 2023
+            </div>
           </div>
         </div>
-      </div>
+      </a>
+      <a href="analyse/heat_calendar.html" class="mosaic-tile-link">
+        <div class="mosaic-tile">
+          <img src="img/plots/calendar.png" alt="Heat Map" />
+          <div class="tile-overlay">
+            <div class="tile-description">
+              Carte de Chaleur façon calendrier des Indices de Parité des Genres
+              sur en 2023.
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
 
-      <!-- Ajoutez plus de tuiles selon le même modèle -->
+    <div id="main-content">
+      <img src="img/Logos_Noirs.png" alt="Image 1" style="width: 100%" />
     </div>
 
     <footer>

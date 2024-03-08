@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEMMES & MEDIAS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../mdw.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FEMMES & MEDIAS</h1>
+      <div id="navbar">
+        <a href="../acceuil.html">Accueil</a>
+        <a href="../results.html">Analyse</a>
+        <a href="../results.html">Analyse</a>
+        <a href="../biblio.html">Bibliographie</a>
+        <a href="../propos.html">À Propos</a>
+      </div>
+    </header>
+
+    <div id="main-content">
+      <h3>
+        Heatmap des moyennes de GPI par combinaison de groupes d'articles
+        regroupés par mots-clés et le média associé.
+      </h3>
+      <p>
+        La visualisation ci-dessus présente une Heatmap qui illustre les
+        moyennes de GPI (Gender Parity Index) par combinaison de groupes
+        d'articles regroupés par mots-clés et par média. Les mots-clés sont
+        issus d'un processus de clustering LDA (Latent Dirichlet Allocation),
+        une technique de modélisation de sujets qui permet de découvrir les
+        thèmes cachés au sein d'ensembles de textes. Chaque ligne de la heatmap
+        représente un "topic" ou groupe de mots-clés associé à des articles
+        spécifiques, tandis que les colonnes représentent différents médias. La
+        couleur de chaque cellule indique la valeur moyenne du GPI pour la
+        combinaison correspondante de topic et de média, avec un code couleur
+        allant du bleu (valeurs négatives indiquant une prédominance masculine)
+        au rose (valeurs positives indiquant une prédominance féminine).
+      </p>
+    </div>
+
+    <div id="content-container">
+      <div id="plotly-graph-container">
+        <iframe
+          src="heat_map_plot.html"
+          frameborder="0"
+          height="450px"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+    <div id="main-content">
+      <p>
+        Cependant, dans notre cas, les valeurs sont majoritairement proches de
+        0, suggérant une représentation relativement neutre en termes de genre
+        pour ces combinaisons de mots-clés et médias. Il est intéressant de
+        noter les variations de teinte de bleu à travers la heatmap. Les nuances
+        plus claires indiquent des valeurs GPI légèrement négatives, suggérant
+        une légère prédominance masculine, tandis que les nuances plus foncées
+        signalent des valeurs GPI plus négatives, marquant une prédominance
+        masculine plus marquée. Cela permet de discerner rapidement les sujets
+        et les médias où les représentations de genre tendent à être plus
+        déséquilibrées.
+      </p>
+    </div>
+
+    <footer>
+      <div class="footer-top">
+        <a
+          href="https://www.univ-montp3.fr/fr/formations/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-1-mathematiques-et-informatique-appliquees-aux-sciences-humaines-et-sociales-miashs-IGVZNX0O.html"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          MIASHS</a
+        >
+        <a
+          href="https://itic.www.univ-montp3.fr/fr/formation/masters/masters-info-com-cno-compaq-cpo/parcours-cno"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          CNO</a
+        >
+        <a
+          href="https://github.com/AlvinVedel/femmes_et_medias.git"
+          class="footer-link"
+          ><i class="fas fa-code-branch" style="color: #322c2d"></i> GIT</a
+        >
+        <a href="https://twitter.com/clubdelapresse" class="footer-social"
+          ><i class="fab fa-twitter" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/clubdelapresse/"
+          class="footer-social"
+          ><i class="fab fa-instagram" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/ClubdelapresseOccitanie"
+          class="footer-social"
+          ><i class="fab fa-facebook-f" style="color: #322c2d"></i
+        ></a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EchoFem. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </body>
+</html>

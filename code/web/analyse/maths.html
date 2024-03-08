@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accueil - EchoFem</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../mdw.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FEMMES & MEDIAS</h1>
+      <div id="navbar">
+        <a href="../acceuil.html">Accueil</a>
+        <a href="../results.html">Analyses</a>
+        <a href="../biblio.html">Bibliographie</a>
+        <a href="../propos.html">À Propos</a>
+      </div>
+    </header>
+
+    <div id="main-content">
+      <h3>Une analyse purement mathématique (concerne que partie cosinus)</h3>
+      <p>
+        En sélectionnant les 10 000 textes les plus détectés comme « masculins »
+        et les 10 000 les plus détectés « féminins » par le GPI (Gender Parity
+        Index) parmi le corpus de texte initial. En référençant l'ensemble des
+        mots qui sont des adjectifs ou des noms dans ces 20 000 textes, soit 49
+        293, on obtient 2 vecteurs comptant les occurrences de ces mots. On fait
+        le cosinus entre ces deux vecteurs et on obtient une valeur entre 0 et
+        1, dans l'interprétation, un cosinus proche de 0 signifie que les
+        vecteurs sont plutôt similaires. S'il est proche de 1 alors les vecteurs
+        sont orthogonaux et très opposés, dans notre cas on obtient un score de
+        0.9486 ce qui est très proche de 1. En faisant une différence des 2
+        vecteurs on peut extraire les éléments qui sont les plus éloignés, on
+        retrouve dans les 40 mots qui ressortent le plus les suivants : «
+        président », « politique », « femme », « économique », « mère », «
+        journal », « quotidien », « chef », « famille »...
+      </p>
+    </div>
+
+    <footer>
+      <div class="footer-top">
+        <a
+          href="https://www.univ-montp3.fr/fr/formations/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-1-mathematiques-et-informatique-appliquees-aux-sciences-humaines-et-sociales-miashs-IGVZNX0O.html"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          MIASHS</a
+        >
+        <a
+          href="https://itic.www.univ-montp3.fr/fr/formation/masters/masters-info-com-cno-compaq-cpo/parcours-cno"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          CNO</a
+        >
+        <a
+          href="https://github.com/AlvinVedel/femmes_et_medias.git"
+          class="footer-link"
+          ><i class="fas fa-code-branch" style="color: #322c2d"></i> GIT</a
+        >
+        <a href="https://twitter.com/clubdelapresse" class="footer-social"
+          ><i class="fab fa-twitter" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/clubdelapresse/"
+          class="footer-social"
+          ><i class="fab fa-instagram" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/ClubdelapresseOccitanie"
+          class="footer-social"
+          ><i class="fab fa-facebook-f" style="color: #322c2d"></i
+        ></a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EchoFem. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </body>
+</html>

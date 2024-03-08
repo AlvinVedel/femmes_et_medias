@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEMMES & MEDIAS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../mdw.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FEMMES & MEDIAS</h1>
+      <div id="navbar">
+        <a href="../acceuil.html">Accueil</a>
+        <a href="../results.html">Analyses</a>
+        <a href="../biblio.html">Bibliographie</a>
+        <a href="../propos.html">À Propos</a>
+      </div>
+    </header>
+
+    <div id="main-content">
+      <h3>
+        Répartition du Contenu Médiatique par Parité de Genre : Analyse Basée
+        sur la reconnaissance d'Entités Nommées Féminines.
+      </h3>
+      <p>
+        Cette visualisation représente la distribution des articles par GPI
+        ajusté, où le GPI (Indice de Parité de Genre) est calculé sur la base du
+        nombre d'entités nommées assimilées aux femmes dans la description de
+        chaque article de votre jeu de données. Le graphique combine un
+        histogramme (en noir) et une courbe de densité (en orange), illustrant
+        la répartition des articles selon leur GPI ajusté. L'axe des abscisses
+        montre l'Indice de Parité de Genre Ajusté (GPI), allant de -1 à 1.
+      </p>
+    </div>
+
+    <div id="content-container">
+      <div id="plotly-graph-container">
+        <iframe src="gpi_distrib.html" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div id="main-content">
+      <p>
+        Les valeurs négatives indiquent un contenu plus axé sur les hommes, zéro
+        représente une neutralité de genre, et les valeurs positives indiquent
+        un contenu plus axé sur les femmes. L'axe des ordonnées indique le
+        nombre d'articles correspondant à chaque intervalle de GPI ajusté. On
+        observe une concentration importante d'articles avec un GPI ajusté
+        proche de -1, suggérant une prédominance d'articles avec un contenu
+        principalement masculin dans le jeu de données. Il y a également
+        quelques pics à des valeurs plus élevées de GPI ajusté, mais en nombre
+        considérablement plus faible. Cette distribution souligne le
+        déséquilibre en faveur du contenu axé sur les hommes dans le jeu de
+        données analysé. La courbe de densité suit de près l'histogramme,
+        mettant en évidence la distribution générale des valeurs de GPI ajusté
+        parmi les articles.
+      </p>
+    </div>
+
+    <footer>
+      <div class="footer-top">
+        <a
+          href="https://www.univ-montp3.fr/fr/formations/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-1-mathematiques-et-informatique-appliquees-aux-sciences-humaines-et-sociales-miashs-IGVZNX0O.html"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          MIASHS</a
+        >
+        <a
+          href="https://itic.www.univ-montp3.fr/fr/formation/masters/masters-info-com-cno-compaq-cpo/parcours-cno"
+          class="footer-link"
+          ><i class="fas fa-graduation-cap" style="color: #f26522"></i> Master 1
+          CNO</a
+        >
+        <a
+          href="https://github.com/AlvinVedel/femmes_et_medias.git"
+          class="footer-link"
+          ><i class="fas fa-code-branch" style="color: #322c2d"></i> GIT</a
+        >
+        <a href="https://twitter.com/clubdelapresse" class="footer-social"
+          ><i class="fab fa-twitter" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/clubdelapresse/"
+          class="footer-social"
+          ><i class="fab fa-instagram" style="color: #322c2d"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/ClubdelapresseOccitanie"
+          class="footer-social"
+          ><i class="fab fa-facebook-f" style="color: #322c2d"></i
+        ></a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EchoFem. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </body>
+</html>
